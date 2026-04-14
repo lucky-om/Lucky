@@ -1,0 +1,476 @@
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@400;600;700;800&display=swap');
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  #lucky-root {
+    min-height: 540px;
+    background: linear-gradient(160deg, #0f2027 0%, #203a43 50%, #2c5364 100%);
+    border-radius: 20px;
+    overflow: hidden;
+    position: relative;
+    font-family: 'Poppins', sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2.2rem 1rem;
+    text-align: center;
+  }
+
+  canvas#lucky-bg {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+
+  /* Floating lanterns */
+  .lantern-layer {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+  }
+
+  .lantern {
+    position: absolute;
+    width: 18px;
+    height: 24px;
+    border-radius: 50% 50% 40% 40%;
+    animation: riseUp linear infinite;
+    opacity: 0;
+    filter: blur(1px);
+  }
+
+  @keyframes riseUp {
+    0%   { transform: translateY(0) translateX(0) rotate(-5deg); opacity: 0; }
+    10%  { opacity: 0.85; }
+    50%  { transform: translateY(-260px) translateX(18px) rotate(5deg); }
+    90%  { opacity: 0.4; }
+    100% { transform: translateY(-560px) translateX(-10px) rotate(-3deg); opacity: 0; }
+  }
+
+  /* Rings */
+  .ring-wrap {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .ring {
+    position: absolute;
+    border-radius: 50%;
+    border: 1px solid rgba(251, 191, 36, 0.12);
+    animation: pulse-ring ease-out infinite;
+  }
+
+  @keyframes pulse-ring {
+    0%   { transform: scale(0.6); opacity: 0.7; }
+    100% { transform: scale(2.2); opacity: 0; }
+  }
+
+  /* Top crown icon */
+  .crown-wrap {
+    position: relative;
+    z-index: 3;
+    font-size: 60px;
+    animation: floatCrown 3s ease-in-out infinite;
+    filter: drop-shadow(0 0 14px #fbbf24);
+  }
+
+  @keyframes floatCrown {
+    0%, 100% { transform: translateY(0) rotate(-4deg); }
+    50%       { transform: translateY(-10px) rotate(4deg); }
+  }
+
+  .subtitle-tag {
+    position: relative;
+    z-index: 3;
+    margin: 10px 0 2px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    color: #fbbf24;
+    opacity: 0.85;
+  }
+
+  .name-title {
+    position: relative;
+    z-index: 3;
+    font-family: 'Dancing Script', cursive;
+    font-size: clamp(3rem, 9vw, 4.6rem);
+    color: #fff;
+    line-height: 1.1;
+    text-shadow: 0 0 30px #fbbf24, 0 0 60px #f59e0b, 0 4px 24px rgba(0,0,0,0.5);
+    animation: shimmerName 3s ease-in-out infinite;
+  }
+
+  @keyframes shimmerName {
+    0%, 100% { text-shadow: 0 0 20px #fbbf24, 0 0 50px #f59e0b; }
+    50%       { text-shadow: 0 0 50px #fde68a, 0 0 90px #fbbf24, 0 0 120px #f59e0b; }
+  }
+
+  .date-pill {
+    position: relative;
+    z-index: 3;
+    margin: 10px 0 22px;
+    background: rgba(251, 191, 36, 0.15);
+    border: 1px solid rgba(251, 191, 36, 0.4);
+    border-radius: 100px;
+    padding: 5px 20px;
+    font-size: 13px;
+    font-weight: 700;
+    color: #fde68a;
+    letter-spacing: 1px;
+  }
+
+  /* Countdown tiles */
+  .cd-wrap {
+    position: relative;
+    z-index: 3;
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .cd-tile {
+    position: relative;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(251,191,36,0.25);
+    border-radius: 18px;
+    padding: 16px 20px 12px;
+    min-width: 80px;
+    overflow: hidden;
+    transition: transform 0.3s, border-color 0.3s;
+  }
+
+  .cd-tile::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(160deg, rgba(251,191,36,0.08) 0%, transparent 60%);
+    pointer-events: none;
+  }
+
+  .cd-tile:hover {
+    transform: translateY(-5px) scale(1.06);
+    border-color: rgba(251,191,36,0.6);
+  }
+
+  .cd-num {
+    display: block;
+    font-size: clamp(2rem, 5.5vw, 2.8rem);
+    font-weight: 800;
+    color: #fde68a;
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+    text-shadow: 0 0 16px #f59e0b;
+  }
+
+  .cd-label {
+    display: block;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: rgba(253, 230, 138, 0.6);
+    margin-top: 5px;
+  }
+
+  .cd-sep {
+    position: relative;
+    z-index: 3;
+    font-size: 2.2rem;
+    font-weight: 800;
+    color: #fbbf24;
+    align-self: center;
+    padding-bottom: 14px;
+    animation: sepBlink 1s step-start infinite;
+  }
+
+  @keyframes sepBlink {
+    0%, 100% { opacity: 1; }
+    50%       { opacity: 0.15; }
+  }
+
+  /* Progress bar */
+  .progress-wrap {
+    position: relative;
+    z-index: 3;
+    width: min(340px, 90%);
+    margin: 20px auto 0;
+  }
+
+  .prog-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 11px;
+    color: rgba(253,230,138,0.55);
+    font-weight: 600;
+    margin-bottom: 6px;
+    letter-spacing: 1px;
+  }
+
+  .prog-track {
+    height: 6px;
+    background: rgba(255,255,255,0.08);
+    border-radius: 100px;
+    overflow: hidden;
+  }
+
+  .prog-fill {
+    height: 100%;
+    background: linear-gradient(to right, #f59e0b, #fde68a);
+    border-radius: 100px;
+    transition: width 1s ease;
+    box-shadow: 0 0 8px #fbbf24;
+  }
+
+  .bottom-msg {
+    position: relative;
+    z-index: 3;
+    margin-top: 18px;
+    font-size: 14px;
+    color: rgba(253,230,138,0.75);
+    font-weight: 600;
+    max-width: 320px;
+    line-height: 1.6;
+  }
+
+  /* Birthday mode */
+  .bday-title {
+    position: relative;
+    z-index: 3;
+    font-family: 'Dancing Script', cursive;
+    font-size: clamp(2rem, 6vw, 3rem);
+    color: #fde68a;
+    text-shadow: 0 0 30px #f59e0b;
+    animation: shimmerName 2s ease-in-out infinite;
+    margin: 8px 0;
+  }
+
+  .conf-layer {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+  }
+
+  .conf-piece {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    border-radius: 2px;
+    animation: confDrop linear infinite;
+    opacity: 0;
+  }
+
+  @keyframes confDrop {
+    0%   { transform: translateY(-20px) rotate(0deg); opacity: 1; }
+    100% { transform: translateY(580px) rotate(900deg); opacity: 0.2; }
+  }
+</style>
+
+<div id="lucky-root">
+  <canvas id="lucky-bg"></canvas>
+
+  <div class="ring-wrap">
+    <div class="ring" style="width:180px;height:180px;animation-duration:3s;animation-delay:0s;"></div>
+    <div class="ring" style="width:260px;height:260px;animation-duration:3s;animation-delay:1s;"></div>
+    <div class="ring" style="width:340px;height:340px;animation-duration:3s;animation-delay:2s;"></div>
+  </div>
+
+  <div class="lantern-layer" id="lanterns"></div>
+
+  <div class="crown-wrap">👑</div>
+
+  <div class="subtitle-tag">Birthday Countdown for</div>
+  <div class="name-title">Lucky</div>
+  <div class="date-pill">✦ April 18, 2026 ✦</div>
+
+  <div class="cd-wrap" id="cd-wrap">
+    <div class="cd-tile"><span class="cd-num" id="ld-days">--</span><span class="cd-label">Days</span></div>
+    <div class="cd-sep">:</div>
+    <div class="cd-tile"><span class="cd-num" id="ld-hours">--</span><span class="cd-label">Hours</span></div>
+    <div class="cd-sep">:</div>
+    <div class="cd-tile"><span class="cd-num" id="ld-mins">--</span><span class="cd-label">Mins</span></div>
+    <div class="cd-sep">:</div>
+    <div class="cd-tile"><span class="cd-num" id="ld-secs">--</span><span class="cd-label">Secs</span></div>
+  </div>
+
+  <div class="progress-wrap" id="prog-wrap">
+    <div class="prog-label">
+      <span>Jan 1, 2026</span>
+      <span id="prog-pct">0%</span>
+      <span>Apr 18, 2026</span>
+    </div>
+    <div class="prog-track"><div class="prog-fill" id="prog-fill" style="width:0%"></div></div>
+  </div>
+
+  <div class="bottom-msg" id="lucky-msg">🌟 Every second brings us closer to your special day, Lucky! 🌟</div>
+</div>
+
+<script>
+(function () {
+  const root = document.getElementById('lucky-root');
+
+  // ---- STARFIELD ----
+  const canvas = document.getElementById('lucky-bg');
+  const ctx = canvas.getContext('2d');
+
+  const stars = Array.from({ length: 140 }, () => ({
+    x: Math.random(), y: Math.random(),
+    r: Math.random() * 1.6 + 0.3,
+    phase: Math.random() * Math.PI * 2,
+    speed: Math.random() * 0.8 + 0.3
+  }));
+
+  // shooting stars
+  const shoots = [];
+  function spawnShoot() {
+    shoots.push({ x: Math.random() * 0.7, y: Math.random() * 0.4, len: 0, maxLen: Math.random() * 120 + 60, angle: Math.PI / 5, speed: Math.random() * 4 + 3, alpha: 1 });
+  }
+  setInterval(spawnShoot, 2800);
+
+  function drawBg() {
+    canvas.width = root.offsetWidth;
+    canvas.height = root.offsetHeight;
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    const t = Date.now() / 1000;
+
+    // stars
+    stars.forEach(s => {
+      const a = 0.25 + 0.65 * (0.5 + 0.5 * Math.sin(t * s.speed + s.phase));
+      ctx.beginPath();
+      ctx.arc(s.x * canvas.width, s.y * canvas.height, s.r, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(253,230,138,${a})`;
+      ctx.fill();
+    });
+
+    // shooting stars
+    for (let i = shoots.length - 1; i >= 0; i--) {
+      const s = shoots[i];
+      s.len += s.speed;
+      const sx = s.x * canvas.width;
+      const sy = s.y * canvas.height;
+      const ex = sx + Math.cos(s.angle) * s.len;
+      const ey = sy + Math.sin(s.angle) * s.len;
+      s.alpha = Math.max(0, 1 - s.len / s.maxLen);
+      const g = ctx.createLinearGradient(sx, sy, ex, ey);
+      g.addColorStop(0, `rgba(253,230,138,0)`);
+      g.addColorStop(1, `rgba(253,230,138,${s.alpha})`);
+      ctx.beginPath();
+      ctx.moveTo(sx, sy);
+      ctx.lineTo(ex, ey);
+      ctx.strokeStyle = g;
+      ctx.lineWidth = 2;
+      ctx.stroke();
+      if (s.alpha <= 0) shoots.splice(i, 1);
+    }
+    requestAnimationFrame(drawBg);
+  }
+  drawBg();
+
+  // ---- LANTERNS ----
+  const lanternLayer = document.getElementById('lanterns');
+  const lanternColors = [
+    'rgba(251,191,36,0.7)', 'rgba(252,211,77,0.6)',
+    'rgba(253,230,138,0.5)', 'rgba(245,158,11,0.65)',
+    'rgba(255,160,50,0.55)'
+  ];
+
+  function spawnLantern() {
+    const el = document.createElement('div');
+    el.className = 'lantern';
+    el.style.left = Math.random() * 95 + '%';
+    el.style.bottom = '0';
+    el.style.background = lanternColors[Math.floor(Math.random() * lanternColors.length)];
+    el.style.boxShadow = '0 0 12px 4px rgba(251,191,36,0.35)';
+    const dur = Math.random() * 5 + 5;
+    el.style.animationDuration = dur + 's';
+    el.style.animationDelay = Math.random() * 3 + 's';
+    el.style.width = (Math.random() * 10 + 12) + 'px';
+    el.style.height = (Math.random() * 10 + 18) + 'px';
+    lanternLayer.appendChild(el);
+    setTimeout(() => el.remove(), (dur + 3.5) * 1000);
+  }
+  setInterval(spawnLantern, 700);
+
+  // ---- COUNTDOWN ----
+  const target = new Date('2026-04-18T00:00:00');
+  const start  = new Date('2026-01-01T00:00:00');
+
+  function pad(n) { return String(n).padStart(2, '0'); }
+
+  const msgs = [
+    '🌟 Every second brings us closer to your special day, Lucky! 🌟',
+    '🎂 Get ready — something amazing is almost here! 🎂',
+    '✨ The universe is preparing a grand celebration for Lucky! ✨',
+    '🎉 Counting down with so much love and joy for you! 🎉',
+    '👑 You deserve all the happiness in the world, Lucky! 👑',
+  ];
+
+  function tick() {
+    const now = new Date();
+    const diff = target - now;
+
+    if (diff <= 0) {
+      document.getElementById('cd-wrap').innerHTML = '<div class="bday-title">🎉 Happy Birthday, Lucky! 🎉</div>';
+      document.getElementById('prog-wrap').style.display = 'none';
+      document.getElementById('lucky-msg').textContent = '👑 Today is Lucky\'s royal day! Make it unforgettable! 👑';
+      launchConf();
+      return;
+    }
+
+    const days  = Math.floor(diff / 86400000);
+    const hours = Math.floor((diff % 86400000) / 3600000);
+    const mins  = Math.floor((diff % 3600000)  / 60000);
+    const secs  = Math.floor((diff % 60000)    / 1000);
+
+    document.getElementById('ld-days').textContent  = pad(days);
+    document.getElementById('ld-hours').textContent = pad(hours);
+    document.getElementById('ld-mins').textContent  = pad(mins);
+    document.getElementById('ld-secs').textContent  = pad(secs);
+
+    // progress bar
+    const total = target - start;
+    const elapsed = now - start;
+    const pct = Math.min(100, Math.max(0, (elapsed / total) * 100));
+    document.getElementById('prog-fill').style.width = pct.toFixed(1) + '%';
+    document.getElementById('prog-pct').textContent = pct.toFixed(0) + '%';
+
+    if (secs % 12 === 0) {
+      document.getElementById('lucky-msg').textContent = msgs[Math.floor(Date.now() / 12000) % msgs.length];
+    }
+  }
+
+  tick();
+  setInterval(tick, 1000);
+
+  // ---- CONFETTI ----
+  function launchConf() {
+    const layer = document.createElement('div');
+    layer.className = 'conf-layer';
+    root.appendChild(layer);
+    const cols = ['#fbbf24','#fde68a','#f59e0b','#fb923c','#a3e635','#60a5fa','#f472b6','#c084fc'];
+    for (let i = 0; i < 70; i++) {
+      const d = document.createElement('div');
+      d.className = 'conf-piece';
+      d.style.left = Math.random() * 100 + '%';
+      d.style.top = '-10px';
+      d.style.background = cols[Math.floor(Math.random() * cols.length)];
+      d.style.animationDuration = (Math.random() * 3 + 2.5) + 's';
+      d.style.animationDelay = (Math.random() * 2.5) + 's';
+      d.style.width = d.style.height = (Math.random() * 10 + 6) + 'px';
+      d.style.borderRadius = Math.random() > 0.5 ? '50%' : '2px';
+      layer.appendChild(d);
+    }
+  }
+})();
+</script>
