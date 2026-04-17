@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Happyy 19th Birthdayy, Luckyyy! 🎂💖</title>
+  <meta name="description" content="Wishing Lucky the most magical 19th birthday!" />
+  <meta name="author" content="Lucky" />
+
+  <!-- SECURITY META TAGS -->
+  <meta http-equiv="Content-Security-Policy"
+    content="default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; media-src 'self' data:; script-src 'self' 'unsafe-inline';" />
+  <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+  <meta name="referrer" content="no-referrer" />
+  <meta name="robots" content="noindex, nofollow, noimageindex" />
+  <!-- Keeps the site completely private from Google -->
+
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="💖 Happy 19th Birthday, Lucky! 🎂✨" />
+  <meta property="og:image" content="birthday_bg.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500;700&family=Playfair+Display:ital,wght@0,500;0,700;1,500&family=Poppins:wght@300;400;500&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body class="no-scroll">
+
+  <!-- ========== INTRO "OPEN ME" OVERLAY ========== -->
+  <div id="introOverlay" class="intro-overlay">
+    <div class="intro-content">
+      <div class="envelope-icon">💌</div>
+      <h1 class="intro-name">Luckyyy</h1>
+      <p class="intro-sub">You have a special surprise waiting…</p>
+      <button id="startBtn" class="intro-btn">Open Me ✨</button>
+    </div>
+    <div class="intro-bg-hearts"></div>
+  </div>
+
+  <!-- ========== CANVAS (confetti) ========== -->
+  <canvas id="confettiCanvas"></canvas>
+  <div class="floaters-wrap" id="floatersWrap"></div>
+
+  <!-- ============================================================
+       SECTION 1 · FLOWERS + HAPPY BIRTHDAY BANNER
+       ============================================================ -->
+  <section class="section-flowers" id="secFlowers">
+    <div class="stars-field" id="starsField"></div>
+
+    <!-- soft bg gradient overlay -->
+    <div class="flowers-bg-overlay"></div>
+
+    <!-- Central flower bouquet image -->
+    <div class="flowers-hero-img reveal-pop">
+      <img src="flowers_bouquet.png" alt="Floral Bouquet" class="bouquet-img" />
+    </div>
+
+    <!-- Happy Birthday banner flags -->
+    <div class="banner-wrap reveal-up">
+      <div class="bunting">
+        <span class="flag f1">H</span><span class="flag f2">A</span><span class="flag f3">P</span><span
+          class="flag f4">P</span><span class="flag f5">Y</span>
+        <span class="flag gap"></span>
+        <span class="flag f6">B</span><span class="flag f7">I</span><span class="flag f8">R</span><span
+          class="flag f9">T</span><span class="flag f10">H</span><span class="flag f11">D</span><span
+          class="flag f12">A</span><span class="flag f13">Y</span>
+      </div>
+    </div>
+
+    <!-- Italic tagline -->
+    <p class="flowers-tagline reveal-fade">Turning 19 🌸</p>
+
+    <p class="scroll-hint reveal-fade">scroll down ↓</p>
+  </section>
+
+  <!-- ============================================================
+       SECTION 2 · CAKE
+       ============================================================ -->
+  <section class="section-cake" id="secCake">
+    <h2 class="section-title reveal">Happyy Birthdayy, Luckyyy! 🤍</h2>
+
+    <div class="cake-wrap reveal">
+      <img src="cake.png" class="cake-img" alt="Birthday Cake" />
+
+      <div class="cake-glow"></div>
+    </div>
+
+    <p class="cake-sub reveal">Make a wish — and make it a big one ✨</p>
+  </section>
+
+  <!-- ============================================================
+       SECTION 3 · POLAROID PHOTOBOOK
+       ============================================================ -->
+  <section class="section-photos" id="secPhotos">
+    <h2 class="section-title reveal">Photobook 📸</h2>
+
+    <div class="polaroid-grid">
+      <div class="polaroid p-rotate-left reveal-card">
+        <div class="polaroid-img-area">
+          <img src="image1.jpeg" alt="Photo 1" class="polaroid-photo" />
+          <div class="polaroid-overlay"></div>
+        </div>
+        <p class="polaroid-caption">🫶</p>
+      </div>
+
+      <div class="polaroid p-center reveal-card delay-2">
+        <div class="polaroid-img-area">
+          <img src="image2.jpeg" alt="Photo 2" class="polaroid-photo" />
+          <div class="polaroid-overlay"></div>
+        </div>
+        <p class="polaroid-caption">Lucky &amp; Me 🤍</p>
+      </div>
+
+      <div class="polaroid p-rotate-right reveal-card delay-1">
+        <div class="polaroid-img-area">
+          <img src="image3.jpeg" alt="Photo 3" class="polaroid-photo" />
+          <div class="polaroid-overlay"></div>
+        </div>
+        <p class="polaroid-caption">🌷</p>
+      </div>
+
+
+
+  </section>
+
+  <!-- ============================================================
+       SECTION 4 · PERSONAL MESSAGE
+       ============================================================ -->
+  <section class="section-message" id="secMessage">
+    <div class="message-blob"></div>
+
+    <div class="message-card reveal">
+      <div class="message-decor">
+        <div class="msg-line"></div><span>💌</span>
+        <div class="msg-line"></div>
+      </div>
+
+      <h2 class="message-title">A Birthdayy Note</h2>
+
+      <div class="message-body">
+        <p class="message-greeting">Happyy Birthdayy, Luckyyy! 🤍</p>
+
+        <p>I've been practicing my Nmap scans and Wireshark captures, but I've realized that a friend like you is the
+          only thing that's impossible to <span class="code-pill">"spoof."</span> You're <strong>100% authentic</strong>
+          — no patches or updates required.</p>
+
+        <p>I coded this site from scratch to celebrate your 19th birthday, While I'm usually busy learning how to bypass
+          security, I made sure this page has the strongest <span class="code-pill">"encryption"</span> for our
+          friendship.</p>
+
+        <p>I hope your day is free of any <strong>DDoS attacks</strong> of stress, your happiness has <strong>99.9%
+            uptime</strong>, and you have a year full of <strong>successful connections</strong> and zero <span
+            class="code-pill">"bugs."</span></p>
+
+        <p class="closing-line">Let's make this year an <strong>"Exploit"</strong> of fun. Your dreams come true, once
+          again</p>
+        <p class="chapter-line">Happy 19th Chapter! 🚀</p>
+      </div>
+
+      <div class="message-decor">
+        <div class="msg-line"></div><span>✨</span>
+        <div class="msg-line"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       FOOTER
+       ============================================================ -->
+  <footer class="footer">
+    <p class="footer-credit">Made with <span class="heart-beat">❤️</span> by Lucky</p>
+    <p class="footer-date">18th April 2026</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+
+</html>
